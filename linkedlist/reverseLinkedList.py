@@ -7,6 +7,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None # Head of list
+
     # approch 1
     def reverseLinkedList(self):
         current = self.head
