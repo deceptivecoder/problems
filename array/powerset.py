@@ -17,17 +17,17 @@ def getPowerset(array, idx = None):
 
 # itrative solution
 # space complexity 0(n*2^n) Time O(n*2^n)
-# def getPowerset(array):
-#     subsets = [[]]
-#     for ele in array:
-#         print("ele: ", ele)
-#         for i in range(len(subsets)):
-#             print("i: ", i, "subsets[i]:", subsets[i])
-#             currentSubset = subsets[i]
-#             print("currentSubset: ", currentSubset)
-#             subsets.append(currentSubset + [ele])
-#             print("subsets: ", subsets)
-#     return subsets
+def getPowerset(array):
+    subsets = [[]]
+    for ele in array:
+        print("ele: ", ele)
+        for i in range(len(subsets)):
+            print("i: ", i, "subsets[i]:", subsets[i])
+            currentSubset = subsets[i]
+            print("currentSubset: ", currentSubset)
+            subsets.append(currentSubset + [ele])
+            print("subsets: ", subsets)
+    return subsets
 
 
 

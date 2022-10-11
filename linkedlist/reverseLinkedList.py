@@ -46,3 +46,4 @@ if __name__ == "__main__":
     print("\nReversed Linked List")
     LL.reverseLinkedList()
     LL.printList()
+    print("")
