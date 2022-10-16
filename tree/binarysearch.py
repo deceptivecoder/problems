@@ -18,6 +18,7 @@ class binaryTree:
                     self.rightchild.insert(data)
         else:
             self.value = data
+            
     # Inorder traversal
     def printTree_inorder(self):
         if self.leftchild:
@@ -40,16 +41,38 @@ class binaryTree:
             self.rightchild.printTree_postorder()
         print(self.value)
 
+    #timecomplexity is O(n) space complexity O(1)
+    def heightOfTree(self):
+        if self is None:
+            print("Tree is empty");  
+            return 0
+        else:
+            leftHeight = 0
+            rightHeight = 0
+            if self.leftchild:
+                leftHeight = self.leftchild.heightOfTree()
+            if self.rightchild:
+                rightHeight = self.rightchild.heightOfTree()
+            
+            max = leftHeight if (leftHeight>rightHeight) else rightHeight
+            return max +1
+
+
 if __name__ =="__main__":
-    node = binaryTree()
-    node.insert(20)
-    node.insert(30)
-    node.insert(5)
-    node.insert(35)
-    node.insert(1)
-    node.printTree_inorder()
+    root = binaryTree()
+    root.insert(10)
+    root.insert(5)
+    root.insert(20)
+    root.insert(15)
+    root.insert(25)
+    print("inoder traversal: ")
+    root.printTree_inorder()
     print("")
-    node.printTree_preorder()
+    print("preorder traversal: ")
+    root.printTree_preorder()
     print("")
-    node.printTree_postorder()
+    print("postorder traversal: ")
+    root.printTree_postorder()
     print("")
+    print("Height of Tree: ", root.heightOfTree())
+
