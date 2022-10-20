@@ -1,6 +1,9 @@
-#include <iostream>
+
+#include<iostream>
 #include<vector>
-#include <unordered_set>
+#include <algorithm>
+#include<unordered_map>
+
 
 using namespace std;
 
@@ -19,7 +22,7 @@ public:
         }
         return false;
     }
-    
+
     // Time O(nlogn) Space O(1)
     bool containsDuplicate(vector<int>& nums) {
         int n = nums.size();
@@ -57,8 +60,7 @@ int main(){
     nums.push_back(2);
     nums.push_back(3);
     nums.push_back(1);
-    
-    
+
     cout << ob.containsDuplicate(nums) <<endl;
     return 0;
 }
