@@ -7,14 +7,14 @@ public:
     //T: O(n2) S : O(1)
     int strStr(string haystack, string needle) {
         int sLen = haystack.size();
-        int subsLen = needle.size();
-        for (int i = 0; i < sLen; i ++ ){
-            for (int j = 0; j < subsLen; j ++ ) {
-                if (haystack[i+j] != needle[j]){
+        int subLen = needle.size();
+        for (int sitr = 0; sitr < sLen; sitr++ ){
+            for (int subitr = 0; subitr < subLen; subitr++ ) {
+                if (haystack[sitr+subitr] != needle[subitr]){
                     break;
                 }
-                if (j == needle.length() -1) {
-                    return i;
+                if (subitr == needle.length() -1) {
+                    return sitr;
                 }
             }
         }
