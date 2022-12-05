@@ -1,0 +1,132 @@
+The Philosophy Of Working with Character Pointers
+
+I found most of us (developers) face problems while working with pointers. maybe, due to its counter intuitiveness. Eventually, It becomes the cause of bugs.
+
+In my professional experience, I also faced a lot of issues and spent a lot of time fixing them (even banged my head on weekends to meet project deadlines).
+
+Now, I realize if one can follow and stick to basics a lot of valuable time can be saved.
+
+Think of a character pointer as an address in memory (stack) which can point to any location.
+
+Caution: Safe side initialize it to NULL and proceed otherwise it may cause a program crash.
+
+Lets see/play now:-
+A character pointer can point to string literal, stores in read-only memory as below.
+    char* ptr = "Delhi"; 
+    //Basically, char  is a pointer to the (const)string literal.
+
+    readonly Memory: D e l h i \0
+2. Check where char pointer is pointing.
+
+    printf("p is pointing to %s", p); //c
+    cout<<"p is pointing to"<<p; //c++
+
+    Output: Delhi
+3. Character pointer which points to a location, later point of time can point to another location.
+
+    char* ptr = "Delhi";
+    ptr = "Mumbai";
+
+    OutPut: Mumbai
+3.a Character pointer to constant char array can be re-assigned but can not be modified.
+
+Example 1:-
+        const char* ptr = "Delhi"; 
+        ptr = "Mumbai"; //Allowed
+        ptr[1] = 'x'; //Not Allowed
+
+        Output: Not Allowed OutPut: error: assignment of read-only location ‘*(char_ptr + 1)’
+        
+Example 2:-
+        char place = 'A';
+        const char* ptr = &place;//(char*)"Delhi";//(char*)"Delhi";
+        *ptr = 'B'; // Not allowed
+
+        Output: error: assignment of read-only location 
+3.b const char* pointer and char const* pointer both are same.
+
+3.c constant Character pointer can not be re-assigned to another location but value of Character pointed by this pointer can be changed.
+
+ Example 1:-
+        char* const ptr = "Delhi"; //constant char pointer
+        ptr = "Mumbai"; //Not Allowed
+
+        Output: error: assignment of read-only variable
+
+        ptr[1] = 'x'; //Not Allowed, Segmentation fault as trying to change string littral value
+
+        Output: error: Segmentation fault
+ Example 2:-
+        char place = 'A';
+        char* const ptr = &place;
+        *ptr = 'B'; //Allowed
+        OutPut: B
+3.d If you want to prevent the content of a string/character and a freeze pointer then
+
+        char place1[] = "Delhi";
+        const char * const ptr = place1;
+        str[4] = '!'; //Not allowed
+        
+        OutPut: error: assignment of read-only location
+        
+        char place2[] = "Hi";
+        ptr = place2
+        
+        OutPut: error: assignment of read-only variable
+4. Traversal: linear time as below.
+
+    char * ptr = "Delhi";
+    for(int i = 0; i<strlen(char_ptr); i++){
+        cout<< ptr[i] <<" ";
+    }
+
+    Output: D e l h i
+5. Length: strlen is string.h built-in function which give length of string.
+
+    char* ptr = "Delhi";
+    cout<<"string length: "<<strlen(ptr)<<endl;
+
+    Output: 5 //(null not considered)
+6. Size: sizeof Character pointer is system dependent (4/8 byte).
+
+    char* ptr = "Delhi";
+    cout<<"sizeof ptr: "<<sizeof(ptr)<<endl;
+    
+    Output: 8 //64bit system, 4byte in 32bit system
+7. character pointer ptr and &ptr are not same.
+
+    char* ptr = "Delhi";
+    cout<<ptr<<endl;
+    
+    Output: Delhi // value at location where pointer is pointing
+    In C, printf("char_ptr: %p\n", char_ptr); //0x55852f62b004
+    
+    cout<<&char_ptr<<endl;
+
+    OutPut: 0x7fff3b6e3f70 //address of char pointer
+    In C, printf("&char_ptr: %p\n", &char_ptr); //0x7fff4ef81840
+8. Increment using ++ operator is allowed.
+
+Conclusions:
+
+char * : The address of this pointer can be changed and the content of the string it points to can be changed through this pointer as well.
+const char * : Only the address of this pointer might be changed, the content of the string it points to cannot be changed.
+Practically, developer should use const char * where content modification is NOT expected. let’s take an example of strcpy function which copies the string pointed by source to the destination. here, exception is not to change content at source.
+     char* strcpy(char* destination, const char* source);
+4. char * const : The content of the string this pointer points to can be changed, but the address of this pointer cannot be changed.
+
+5. const char * const : Both the location of this pointer and the content of the string it points to cannot be changed. Good read.
+
+6. Character pointers are memory efficient. Length of character array/String literal need not to be known while initialization, developer must keep up with length and size with the help of functions ex. strlen, sizeof
+
+7. Developers have to be more cautious while working with char pointers due to ending null character.
+
+8. C++ have std::string which can 
+    a. The size/length functions are constant time (c.f. the linear time strlen function).
+    b. Reduced risk of segmentation faults by utilizing iterators and the at() function
+    c. The interfaces are much more intuitive to use, leading to less chances of messing up argument order
+    d. Intuitive assignment using the = operator rather than strcpy
+    e. Intuitive comparison using the == operator rather than strcmp
+    f. Intuitive interfaces for other operations such as concatenation (+ operator is nice!)
+
+A Slip Of A Moment Can Result Into An Accident.
